@@ -39,7 +39,9 @@ const NamesTab = ({navigation}) => {
              
             data = {movies}
             renderItem ={itemData => (
+                <View style ={styles.listItem}>
                 <Text >{itemData.item.title}</Text>
+                </View>
                 )}
             keyExtractor = {(itemData,index) =>itemData.title}
             />
@@ -58,5 +60,15 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
-    }
+    },
+    listItem:{
+        backgroundColor: '#66c2ff',
+        padding: 10,
+        marginBottom: 5,
+        borderWidth: 1,
+        borderRadius:20,
+        width: 300,
+        alignItems: 'center',
+        fontSize: 50
+      },
 })

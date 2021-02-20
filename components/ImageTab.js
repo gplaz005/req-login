@@ -6,7 +6,7 @@ const ImageTab = ({navigation}) => {
     return(
         <View style = {styles.container}>
             <Image
-            style={{ width: 100, height: 100, marginBottom: 15 }}
+            style = {styles.imageLook}
             source={{
               uri: 'https://reactnative.dev/img/tiny_logo.png',
             }}
@@ -25,4 +25,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    imageLook:{
+        
+  borderRadius: 10,
+  padding: 10,
+  width: 200,
+  height: 200
+    }
   });

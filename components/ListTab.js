@@ -4,7 +4,7 @@ import { View, Text, StyleSheet , Button} from 'react-native'
 const ListTab = ({navigation}) => {
     
     return(
-        <View>
+        <View style ={styles.container}>
         <Button
         title="Names Tab"
         onPress={() => navigation.navigate('NamesTab')}
@@ -28,3 +28,12 @@ const ListTab = ({navigation}) => {
 }
 
 export default ListTab
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
+})
