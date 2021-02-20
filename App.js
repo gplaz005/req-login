@@ -8,6 +8,7 @@ import {createBottonTabNavigator} from "@react-navigation/bottom-tabs"
 import ListTab from './components/ListTab';
 import ImageTab from './components/ImageTab';
 import VideoTab from './components/VideoTab';
+import NamesTab from './components/NamesTab';
 
 /*import ListTab from './components/ListTab';
 import ImageTab from './components/ImageTab';
@@ -20,8 +21,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <AuthStack.Navigator>
-        
+
         <AuthStack.Screen name = "ListTab" component = {ListTab} />
+        <AuthStack.Screen name = "NamesTab" component = {NamesTab} />
         <AuthStack.Screen name = "ImageTab" component = {ImageTab} />
         <AuthStack.Screen name = "VideoTab" component = {VideoTab} />
       

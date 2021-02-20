@@ -5,10 +5,22 @@ const ListTab = ({navigation}) => {
     
     return(
         <View>
-            <Button
-        title="Go to ImageTab"
+        <Button
+        title="Names Tab"
+        onPress={() => navigation.navigate('NamesTab')}
+        />
+
+        <Button
+        title="Image Tab"
         onPress={() => navigation.navigate('ImageTab')}
-      />
+        />
+
+        <Button
+        title="Video Tab"
+        onPress={() => navigation.navigate('VideoTab')}
+        />
+
+        
 
         
         </View>
