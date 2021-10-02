@@ -6,15 +6,36 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ListTab = ({navigation}) => {
 
-    const [text, onChangeText] = useState('');
+    
+const getUser = async (userEmail, userPassword) => {
+    const res = await fetch("https://reqres.in/api/login",{
+      method: 'POST',
+      headers:{
+        "Content-Type": "application/json",                                                                       
+        "Access-Control-Origin": "*"
+      },
+      body: JSON.stringify({
+        //"email": "eve.holt@reqres.in",
+        "email": userEmail,
+      "password": userPassword  
+      })
+    }).then(function(response){ 
+    return response.json(); 
+})
+.then(function(data){ 
+    console.log(data)
+});
+  };
+
 
     
     return(
         <View style ={styles.container}>
        
-       <Formik
-     initialValues={{ email: '', password: '' }}
-     onSubmit={values => console.log(values)}
+    <Formik
+    initialValues={{ email: '', password: '' }}
+    //onSubmit={values => console.log(values)}
+    onSubmit = {() => getUser("eve.holt@reqres.in", "cityslicka")}
     validationSchema = {
                 Yup.object({
                     email: Yup.string()
@@ -25,7 +46,6 @@ const ListTab = ({navigation}) => {
                     .required('please enter password')
                 })
             }
-
 
    >
      {({ handleChange, errors , touched, handleBlur, handleSubmit, values }) => (
