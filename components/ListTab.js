@@ -1,5 +1,5 @@
 import React  ,{useState}from 'react'
-import { View, Text, StyleSheet , Button, TextInput} from 'react-native'
+import { View, Text, StyleSheet , Button, TextInput, Keyboard, TouchableWithoutFeedback} from 'react-native'
 import {Formik} from 'formik'; 
 import * as Yup from 'yup';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -29,8 +29,8 @@ const getUser = async (userEmail, userPassword) => {
         navigation.navigate('NamesTab', {say : "sucesfull"})
        }
        else{
-         //console.log(data.error)
-         navigation.navigate('NamesTab', {say : "fail"})
+         console.log(data.error)
+         navigation.navigate('NamesTab', {say : data.error})
        }
 });
   };
@@ -38,6 +38,7 @@ const getUser = async (userEmail, userPassword) => {
 
     
     return(
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style ={styles.container}>
        
     <Formik
@@ -58,17 +59,21 @@ const getUser = async (userEmail, userPassword) => {
    >
      {({ handleChange, errors , touched, handleBlur, handleSubmit, values }) => (
        <View>
-           {errors.email && touched.email? <Text>invalid email format</Text> : null}
+           
             <View style ={styles.input}>
             <TextInput
            onChangeText={handleChange('email')}
            onBlur={handleBlur('email')}
            value={values.email}
          />
+         <View style = {{marginTop: 15, height:20,}}>
+         {errors.email && touched.email?
+        <Text style = {{color: '#DC143C'}}>invalid email format</Text> : 
+        null}
          </View>
-
+         </View>
          
-         {errors.password && touched.password? <Text>invalid password format</Text> : null}
+         
          <View style ={styles.input}>
             <TextInput
             secureTextEntry = {true}
@@ -76,13 +81,21 @@ const getUser = async (userEmail, userPassword) => {
            onBlur={handleBlur('password')}
            value={values.password}
          />
+         <View style = {{height:20, marginTop:16}}>
+         {errors.password && touched.password?
+          <Text style = {{color: '#DC143C'}}>invalid password format</Text> :
+           null}
          </View>
-         <Button onPress={handleSubmit} title="Submit" />
+         </View>
+         
+
+         <Button color = '#0000CD' onPress={handleSubmit} title="Log In" />
        </View>
      )}
    </Formik>
             
         </View>
+        </TouchableWithoutFeedback>
     )
 }
 
@@ -91,15 +104,16 @@ export default ListTab
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#B0E0E6',
       alignItems: 'center',
       justifyContent: 'center',
     },
     input: {
         height: 40,
-        width: 200,
+        width: 240,
         borderWidth: 1,
         padding: 10,
-        marginBottom: 40
+        marginBottom: 40,
+        borderRadius: 20,
       },
 })
