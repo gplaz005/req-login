@@ -1,51 +1,17 @@
 import React, {useState, useEffect} from 'react'
 import { View, Text, StyleSheet , Button, FlatList} from 'react-native'
 
-const NamesTab = ({navigation}) => {
+const NamesTab = ({route , navigation}) => {
 
-    const [movies ,setMovies] = useState()
-    
-    useEffect(() =>{
-        getData();
-        },[])
-
-    
-
-    const getData = async() =>{
-        try{
-            let moviesArray = []
-            const url = 'https://reactnative.dev/movies.json'
-            const response = await fetch(url);
-            let movieData = await response.json();
-            let moviesList = JSON.stringify(movieData.movies)
-            
-            //console.log(movieData.movies)
-            movieData.movies.map((k) =>{
-                moviesArray = [...moviesArray,k]
-            })
-            setMovies(movieData.movies)
-  
-            
-        }catch(error){
-            console.log("error")
-        }    
-    }
+   const  result = route.params.say;
+   console.log(result)
 
     
     return(
         <View style = {styles.container}>
-            
-            <FlatList
-             
-            data = {movies}
-            renderItem ={itemData => (
-                <View style ={styles.listItem}>
-                <Text >{itemData.item.title}</Text>
-                </View>
-                )}
-            keyExtractor = {(itemData,index) =>itemData.title}
-            />
-           
+            <View style = {{marginTop: 40}}>
+           <Text>{result}</Text>
+            </View>          
         </View>
     )
 }

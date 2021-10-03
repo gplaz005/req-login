@@ -23,7 +23,15 @@ const getUser = async (userEmail, userPassword) => {
     return response.json(); 
 })
 .then(function(data){ 
-    console.log(data)
+    //console.log(data)
+    if(data.token){
+        //console.log("succesfull Login")
+        navigation.navigate('NamesTab', {say : "sucesfull"})
+       }
+       else{
+         //console.log(data.error)
+         navigation.navigate('NamesTab', {say : "fail"})
+       }
 });
   };
 
@@ -34,8 +42,8 @@ const getUser = async (userEmail, userPassword) => {
        
     <Formik
     initialValues={{ email: '', password: '' }}
-    //onSubmit={values => console.log(values)}
-    onSubmit = {() => getUser("eve.holt@reqres.in", "cityslicka")}
+    //onSubmit={values => console.log(values.email)}
+    onSubmit = {values => getUser(values.email, values.password)}
     validationSchema = {
                 Yup.object({
                     email: Yup.string()
@@ -74,13 +82,6 @@ const getUser = async (userEmail, userPassword) => {
      )}
    </Formik>
             
-
-        
-        <Button
-        title="Names Tab"
-        onPress={() => navigation.navigate('NamesTab')}
-        />
-        
         </View>
     )
 }
