@@ -1,29 +1,101 @@
-import React from 'react'
-import { View, Text, StyleSheet , Button} from 'react-native'
+import React  ,{useState}from 'react'
+import { View, Text, StyleSheet , Button, TextInput, Keyboard, TouchableWithoutFeedback} from 'react-native'
+import {Formik} from 'formik'; 
+import * as Yup from 'yup';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ListTab = ({navigation}) => {
+
+    
+const getUser = async (userEmail, userPassword) => {
+    const res = await fetch("https://reqres.in/api/login",{
+      method: 'POST',
+      headers:{
+        "Content-Type": "application/json",                                                                       
+        "Access-Control-Origin": "*"
+      },
+      body: JSON.stringify({
+        //"email": "eve.holt@reqres.in",
+        "email": userEmail,
+      "password": userPassword  
+      })
+    }).then(function(response){ 
+    return response.json(); 
+})
+.then(function(data){ 
+    //console.log(data)
+    if(data.token){
+        //console.log("succesfull Login")
+        navigation.navigate('NamesTab', {say : "sucesfull"})
+       }
+       else{
+         console.log(data.error)
+         navigation.navigate('NamesTab', {say : data.error})
+       }
+});
+  };
+
+
     
     return(
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style ={styles.container}>
-        <Button
-        title="Names Tab"
-        onPress={() => navigation.navigate('NamesTab')}
-        />
+       
+    <Formik
+    initialValues={{ email: '', password: '' }}
+    //onSubmit={values => console.log(values.email)}
+    onSubmit = {values => getUser(values.email, values.password)}
+    validationSchema = {
+                Yup.object({
+                    email: Yup.string()
+                    .trim()
+                    .email('invalid email')
+                    .required('please enter email'),
+                    password: Yup.string()
+                    .required('please enter password')
+                })
+            }
 
-        <Button
-        title="Image Tab"
-        onPress={() => navigation.navigate('ImageTab')}
-        />
+   >
+     {({ handleChange, errors , touched, handleBlur, handleSubmit, values }) => (
+       <View>
+           
+            <View style ={styles.input}>
+            <TextInput
+           onChangeText={handleChange('email')}
+           onBlur={handleBlur('email')}
+           value={values.email}
+         />
+         <View style = {{marginTop: 15, height:20,}}>
+         {errors.email && touched.email?
+        <Text style = {{color: '#DC143C'}}>invalid email format</Text> : 
+        null}
+         </View>
+         </View>
+         
+         
+         <View style ={styles.input}>
+            <TextInput
+            secureTextEntry = {true}
+           onChangeText={handleChange('password')}
+           onBlur={handleBlur('password')}
+           value={values.password}
+         />
+         <View style = {{height:20, marginTop:16}}>
+         {errors.password && touched.password?
+          <Text style = {{color: '#DC143C'}}>invalid password format</Text> :
+           null}
+         </View>
+         </View>
+         
 
-        <Button
-        title="Video Tab"
-        onPress={() => navigation.navigate('VideoTab')}
-        />
-
-        
-
-        
+         <Button color = '#0000CD' onPress={handleSubmit} title="Log In" />
+       </View>
+     )}
+   </Formik>
+            
         </View>
+        </TouchableWithoutFeedback>
     )
 }
 
@@ -32,8 +104,16 @@ export default ListTab
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#B0E0E6',
       alignItems: 'center',
       justifyContent: 'center',
-    }
+    },
+    input: {
+        height: 40,
+        width: 240,
+        borderWidth: 1,
+        padding: 10,
+        marginBottom: 40,
+        borderRadius: 20,
+      },
 })
