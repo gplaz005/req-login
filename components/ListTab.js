@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ListTab = ({navigation}) => {
 
-    
+ // start of getUser function   
 const getUser = async (userEmail, userPassword) => {
     const res = await fetch("https://reqres.in/api/login",{
       method: 'POST',
@@ -15,40 +15,38 @@ const getUser = async (userEmail, userPassword) => {
         "Access-Control-Origin": "*"
       },
       body: JSON.stringify({
-        //"email": "eve.holt@reqres.in",
         "email": userEmail,
       "password": userPassword  
       })
-    }).then(function(response){ 
+    })  // end of fetch function
+    .then(function(response){ 
     return response.json(); 
-})
-.then(function(data){ 
-    //console.log(data)
+      })
+    .then(function(data){ 
     if(data.token){
-        //console.log("succesfull Login")
         navigation.navigate('NamesTab', {say : "sucesfull"})
        }
        else{
          console.log(data.error)
          navigation.navigate('NamesTab', {say : data.error})
        }
-});
-  };
+    });
+  }; // end of getUser function
 
 
     
-    return(
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style ={styles.container}>
+  return(
+<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+<View style ={styles.container}>
+      
       <View>
-        <Text style = {{fontSize:40, fontWeight: 'bold', color: 'white'}}>PROKEEP TEST</Text>
-        <Text style = {{color: 'white', paddingBottom: 60}}>by G.P</Text>
+        <Text style = {styles.title}>PROKEEP TEST</Text>
+        <Text style = {styles.subTitle}>by G.P</Text>
       </View>
 
        
     <Formik
     initialValues={{ email: '', password: '' }}
-    //onSubmit={values => console.log(values.email)}
     onSubmit = {values => getUser(values.email, values.password)}
     validationSchema = {
                 Yup.object({
@@ -61,39 +59,45 @@ const getUser = async (userEmail, userPassword) => {
                 })
             }
 
-   >
+    >
      {({ handleChange, errors , touched, handleBlur, handleSubmit, values }) => (
        <View>
            
-            <View style ={styles.input}>
-            <TextInput
-            placeholder = {"email"}
+        <View style ={styles.input}>
+
+          <TextInput
+           placeholder = {"email"}
            onChangeText={handleChange('email')}
            onBlur={handleBlur('email')}
            value={values.email}
-         />
-         <View style = {{marginTop: 15, height:20,}}>
-         {errors.email && touched.email?
-        <Text style = {{color: '#DC143C'}}>invalid email format</Text> : 
-        null}
-         </View>
-         </View>
+          />
+
+          <View style = {{marginTop: 15, height:20,}}>
+          {errors.email && touched.email?
+          <Text style = {{color: '#DC143C'}}>invalid email format</Text> : 
+          null}
+          </View>
+
+        </View>
          
          
          <View style ={styles.input}>
-            <TextInput
-            placeholder = {'password'}
-            secureTextEntry = {true}
-           onChangeText={handleChange('password')}
-           onBlur={handleBlur('password')}
-           value={values.password}
-         />
-         <View style = {{height:20, marginTop:16}}>
-         {errors.password && touched.password?
+
+          <TextInput
+          placeholder = {'password'}
+          secureTextEntry = {true}
+          onChangeText={handleChange('password')}
+          onBlur={handleBlur('password')}
+          value={values.password}
+          />
+
+          <View style = {{height:20, marginTop:16}}>
+          {errors.password && touched.password?
           <Text style = {{color: '#DC143C'}}>invalid password format</Text> :
            null}
-         </View>
-         </View>
+          </View>
+         
+        </View>
          
 
          <Button color = '#0000CD' onPress={handleSubmit} title="Log In" testID = "Button" />
@@ -101,8 +105,8 @@ const getUser = async (userEmail, userPassword) => {
      )}
    </Formik>
             
-        </View>
-        </TouchableWithoutFeedback>
+  </View>
+  </TouchableWithoutFeedback>
     )
 }
 
@@ -114,6 +118,15 @@ const styles = StyleSheet.create({
       backgroundColor: '#B0E0E6',
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    title:{
+      fontSize:40, 
+      fontWeight: 'bold', 
+      color: 'white'
+    },
+    subTitle:{
+      color: 'white',
+      paddingBottom: 60
     },
     input: {
         height: 40,

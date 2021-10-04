@@ -13,13 +13,13 @@ const NamesTab = ({route , navigation}) => {
             <View>
                { result == 'sucesfull' ?
                 <View>
-                <Text style = {{ textAlign: 'center', fontSize: 20, color: 'green'}}> Login succesfull</Text> 
-                <Text style = {{ textAlign: 'center', fontSize: 20, color: 'green'}}> Access granted</Text> 
+                <Text style = {styles.title}> Login succesfull</Text> 
+                <Text style = {styles.title}> Access granted</Text> 
 
                 </View>
                : 
                <View>
-                <Text style = {{ textAlign: 'center', fontSize: 20, color: '#DC143C'}}>{result}</Text>
+                <Text style = {styles.result}>{result}</Text>
                 <Text style = {{textAlign: 'center',color: '#DC143C'}}>Try Again</Text>
                <Button color = '#0000CD' onPress={() => navigation.navigate('ListTab')} title="Log In" />
                </View>
@@ -40,14 +40,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    listItem:{
-        backgroundColor: '#66c2ff',
-        padding: 10,
-        marginBottom: 5,
-        borderWidth: 1,
-        borderRadius:20,
-        width: 300,
-        alignItems: 'center',
-        fontSize: 50
-      },
+    title:{
+        textAlign: 'center', 
+        fontSize: 20, 
+        color: 'green'
+    },
+    result:{
+        textAlign: 'center', 
+        fontSize: 20, 
+        color: '#DC143C'
+    }
 })
