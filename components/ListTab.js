@@ -40,6 +40,11 @@ const getUser = async (userEmail, userPassword) => {
     return(
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style ={styles.container}>
+      <View>
+        <Text style = {{fontSize:40, fontWeight: 'bold', color: 'white'}}>PROKEEP TEST</Text>
+        <Text style = {{color: 'white', paddingBottom: 60}}>by G.P</Text>
+      </View>
+
        
     <Formik
     initialValues={{ email: '', password: '' }}
@@ -62,6 +67,7 @@ const getUser = async (userEmail, userPassword) => {
            
             <View style ={styles.input}>
             <TextInput
+            placeholder = {"email"}
            onChangeText={handleChange('email')}
            onBlur={handleBlur('email')}
            value={values.email}
@@ -76,6 +82,7 @@ const getUser = async (userEmail, userPassword) => {
          
          <View style ={styles.input}>
             <TextInput
+            placeholder = {'password'}
             secureTextEntry = {true}
            onChangeText={handleChange('password')}
            onBlur={handleBlur('password')}
@@ -89,7 +96,7 @@ const getUser = async (userEmail, userPassword) => {
          </View>
          
 
-         <Button color = '#0000CD' onPress={handleSubmit} title="Log In" />
+         <Button color = '#0000CD' onPress={handleSubmit} title="Log In" testID = "Button" />
        </View>
      )}
    </Formik>

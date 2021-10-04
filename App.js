@@ -20,9 +20,9 @@ const AuthStack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <AuthStack.Navigator>
+      <AuthStack.Navigator headerMode = {'none'}>
 
-        <AuthStack.Screen name = "ListTab" component = {ListTab} />
+        <AuthStack.Screen name = "ListTab" component = {ListTab}  />
         <AuthStack.Screen name = "NamesTab" component = {NamesTab} />
         <AuthStack.Screen name = "ImageTab" component = {ImageTab} />
         <AuthStack.Screen name = "VideoTab" component = {VideoTab} />
