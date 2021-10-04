@@ -89,7 +89,7 @@ const getUser = async (userEmail, userPassword) => {
          </View>
          
 
-         <Button color = '#0000CD' onPress={handleSubmit} title="Log In" />
+         <Button color = '#0000CD' onPress={handleSubmit} title="Log In" testID = "Button" />
        </View>
      )}
    </Formik>
